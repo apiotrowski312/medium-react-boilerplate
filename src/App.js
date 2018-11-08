@@ -1,28 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { decrementCounter, incrementCounter } from './store/numeric/actions'
+import { connect } from 'react-redux'
+import { withNamespaces } from 'react-i18next';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+const App = (props) => (
+  <div className="App">
+    <div>
+      <button onClick={props.inc}>
+        UP
+      </button>
+      <button onClick={props.dec}>
+        DOWN
+      </button>
+    </div>
+    <div>
+      <button onClick={() => props.i18n.changeLanguage('pl')}>PL</button>
+      <button onClick={() => props.i18n.changeLanguage('en')}>EN</button>
+    </div>
+    {props.t('Counter')}: {props.num}
+  </div>
+)
+const mapStateToProps = (state) => {
+  return {
+    num: state.numeric.counter
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    inc: () => dispatch(incrementCounter()),
+    dec: () => dispatch(decrementCounter()),
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(App));
