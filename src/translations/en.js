@@ -1,5 +1,5 @@
 export default {
   translations: {
-    Counter: 'Counter'
-  }
+    Counter: 'Counter',
+  },
 };

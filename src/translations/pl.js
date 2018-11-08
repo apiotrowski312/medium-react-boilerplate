@@ -1,5 +1,5 @@
 export default {
   translations: {
-    Counter: 'Licznik'
-  }
+    Counter: 'Licznik',
+  },
 };
